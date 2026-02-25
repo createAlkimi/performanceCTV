@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alkimi — Performance CTV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --alkimi-black: #0A0A0F;
+      --alkimi-white: #FFFFFF;
+      --alkimi-grey-light: #C8C8D0;
+      --alkimi-grey-mid: #7A7A85;
+      --alkimi-grey-dark: #2A2A35;
+      --surface-1: #121218;
+      --surface-2: #1A1A22;
+      --alkimi-purple: #5C26FF;
+      --alkimi-purple-dark: #4A1ECC;
+      --alkimi-purple-light: #8A5CFF;
+      --alkimi-green: #00E87B;
+      --alkimi-green-dark: #00B862;
+      --font-title: 'Unbounded', system-ui, sans-serif;
+      --font-heading: 'Poppins', system-ui, sans-serif;
+      --font-body: 'Poppins', system-ui, sans-serif;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+    }
+
+    html {
+      background: var(--alkimi-black);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background: var(--alkimi-black);
+      color: var(--alkimi-white);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ─── NAV ─── */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-tag {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--alkimi-purple);
+      background: rgba(92,38,255,0.12);
+      border: 1px solid rgba(92,38,255,0.25);
+      border-radius: var(--radius-full);
+      padding: 5px 14px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      padding: 96px 48px 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 700px;
+      background: radial-gradient(ellipse, rgba(92,38,255,0.14) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .overline {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--alkimi-purple);
+    }
+
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      text-transform: uppercase;
+      color: var(--alkimi-white);
+    }
+
+    .hero-title span {
+      background: linear-gradient(90deg, #5C26FF, #00E87B);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      font-weight: 400;
+      color: var(--alkimi-grey-light);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    .badge {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--alkimi-grey-light);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .badge--purple {
+      border-color: rgba(92,38,255,0.35);
+      color: var(--alkimi-purple-light);
+      background: rgba(92,38,255,0.1);
+    }
+
+    .badge--green {
+      border-color: rgba(0,232,123,0.3);
+      color: var(--alkimi-green);
+      background: rgba(0,232,123,0.08);
+    }
+
+    /* ─── STATS STRIP ─── */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .stat-item {
+      background: var(--surface-1);
+      padding: 40px 32px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .stat-item:first-child { border-left: 2px solid var(--alkimi-purple); }
+
+    .stat-value {
+      font-family: var(--font-title);
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--alkimi-white);
+      line-height: 1;
+    }
+
+    .stat-value.green { color: var(--alkimi-green); }
+    .stat-value.purple { color: var(--alkimi-purple-light); }
+
+    .stat-label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--alkimi-grey-mid);
+    }
+
+    /* ─── SECTIONS ─── */
+    .section {
+      padding: 80px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-heading);
+      font-size: 1.625rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--alkimi-white);
+      margin-top: 10px;
+    }
+
+    .section-header p {
+      font-size: 0.9375rem;
+      color: var(--alkimi-grey-light);
+      max-width: 560px;
+      margin-top: 10px;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .step {
+      background: var(--surface-1);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: background 0.2s ease;
+    }
+
+    .step:hover { background: var(--surface-2); }
+
+    .step-num {
+      font-family: var(--font-title);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--alkimi-purple);
+      text-transform: uppercase;
+    }
+
+    .step h3 {
+      font-family: var(--font-heading);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--alkimi-white);
+      letter-spacing: -0.01em;
+    }
+
+    .step p {
+      font-size: 0.8125rem;
+      color: var(--alkimi-grey-mid);
+      line-height: 1.5;
+    }
+
+    .step-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(92,38,255,0.1);
+      border: 1px solid rgba(92,38,255,0.2);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.125rem;
+      margin-bottom: 4px;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider-purple {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(92,38,255,0.3), transparent);
+      margin: 0 48px;
+    }
+
+    /* ─── OUTCOMES ─── */
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .outcome-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      padding: 28px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      cursor: default;
+    }
+
+    .outcome-card:hover {
+      border-color: rgba(92,38,255,0.3);
+      background: rgba(92,38,255,0.04);
+      transform: translateY(-2px);
+    }
+
+    .outcome-icon {
+      font-size: 1.75rem;
+    }
+
+    .outcome-card h3 {
+      font-family: var(--font-title);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--alkimi-white);
+    }
+
+    .outcome-card p {
+      font-size: 0.75rem;
+      color: var(--alkimi-grey-mid);
+      line-height: 1.5;
+    }
+
+    .no-build-note {
+      margin-top: 20px;
+      padding: 14px 20px;
+      background: rgba(0,232,123,0.06);
+      border: 1px solid rgba(0,232,123,0.15);
+      border-radius: var(--radius-md);
+      font-size: 0.8125rem;
+      color: var(--alkimi-green);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ─── RESULTS / CASE STUDIES ─── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .case-card {
+      background: var(--surface-1);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .case-card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .case-card-header span {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--alkimi-purple);
+    }
+
+    .case-card-header h3 {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--alkimi-white);
+    }
+
+    .case-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .case-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .case-metric-val {
+      font-family: var(--font-title);
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: var(--alkimi-white);
+      line-height: 1;
+    }
+
+    .case-metric-val.green { color: var(--alkimi-green); }
+
+    .case-metric-label {
+      font-size: 0.6875rem;
+      color: var(--alkimi-grey-mid);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* ─── WHY ALKIMI ─── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .why-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .why-card:hover {
+      border-color: rgba(92,38,255,0.25);
+      background: rgba(92,38,255,0.03);
+    }
+
+    .why-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(92,38,255,0.1);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .why-card h3 {
+      font-family: var(--font-heading);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--alkimi-white);
+    }
+
+    .why-card p {
+      font-size: 0.75rem;
+      color: var(--alkimi-grey-mid);
+      line-height: 1.5;
+    }
+
+    /* ─── INVENTORY ─── */
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .inventory-card {
+      background: var(--surface-1);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .inventory-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .region-flag {
+      font-size: 1.5rem;
+    }
+
+    .inventory-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--alkimi-white);
+    }
+
+    .inventory-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .inventory-stat {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .inventory-stat-val {
+      font-family: var(--font-title);
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--alkimi-white);
+      min-width: 72px;
+      line-height: 1;
+    }
+
+    .inventory-stat-label {
+      font-size: 0.8rem;
+      color: var(--alkimi-grey-light);
+    }
+
+    .coming-soon {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--alkimi-green);
+      background: rgba(0,232,123,0.08);
+      border: 1px solid rgba(0,232,123,0.2);
+      border-radius: var(--radius-full);
+      padding: 4px 12px;
+      width: fit-content;
+    }
+
+    .incremental-note {
+      grid-column: 1 / -1;
+      padding: 20px 28px;
+      background: rgba(92,38,255,0.06);
+      border: 1px solid rgba(92,38,255,0.15);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      color: var(--alkimi-grey-light);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .incremental-note strong { color: var(--alkimi-purple-light); }
+
+    /* ─── CTA FOOTER ─── */
+    .cta-section {
+      position: relative;
+      padding: 80px 48px;
+      text-align: center;
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(92,38,255,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .cta-inner {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .cta-title {
+      font-family: var(--font-title);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .cta-sub {
+      font-size: 0.9375rem;
+      color: var(--alkimi-grey-light);
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 13px 28px;
+      background: var(--alkimi-purple);
+      color: var(--alkimi-white);
+      border: none;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-primary:hover {
+      background: var(--alkimi-purple-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 24px rgba(92,38,255,0.35);
+    }
+
+    .btn-secondary {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 13px 28px;
+      background: transparent;
+      color: var(--alkimi-white);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--alkimi-purple);
+      color: var(--alkimi-purple-light);
+      background: rgba(92,38,255,0.08);
+    }
+
+    /* ─── PAGE FOOTER ─── */
+    .page-footer {
+      padding: 28px 48px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .footer-note {
+      font-size: 0.75rem;
+      color: var(--alkimi-grey-mid);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--alkimi-grey-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--alkimi-white); }
+
+    .provider-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 4px;
+    }
+
+    .provider-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--alkimi-grey-mid);
+    }
+
+    .provider-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .provider-tag {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--alkimi-grey-light);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-full);
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ─── COMPLEMENTS SOCIAL ─── */
+    .social-hero-stat {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      background: var(--surface-1);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-left: 3px solid var(--alkimi-purple);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      margin-bottom: 20px;
+    }
+
+    .social-hero-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 160px;
+    }
+
+    .social-big {
+      font-family: var(--font-title);
+      font-size: 3.5rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--alkimi-white);
+      line-height: 1;
+    }
+
+    .social-big-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--alkimi-grey-mid);
+    }
+
+    .social-divider {
+      width: 1px;
+      height: 64px;
+      background: rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    .social-hero-desc {
+      font-size: 0.9375rem;
+      color: var(--alkimi-grey-light);
+      line-height: 1.7;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .social-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg);
+      padding: 24px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .social-card:hover {
+      border-color: rgba(92,38,255,0.25);
+      background: rgba(92,38,255,0.03);
+    }
+
+    .social-card-top {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .social-stat {
+      font-family: var(--font-title);
+      font-size: 1.625rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--alkimi-purple-light);
+      line-height: 1;
+    }
+
+    .social-stat.green { color: var(--alkimi-green); }
+
+    .social-tag {
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--alkimi-grey-mid);
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--radius-full);
+      padding: 3px 8px;
+    }
+
+    .social-card h3 {
+      font-family: var(--font-heading);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--alkimi-white);
+      letter-spacing: -0.01em;
+    }
+
+    .social-card p {
+      font-size: 0.75rem;
+      color: var(--alkimi-grey-mid);
+      line-height: 1.6;
+    }
+
+    .social-bottom-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px 24px;
+      background: rgba(92,38,255,0.06);
+      border: 1px solid rgba(92,38,255,0.15);
+      border-radius: var(--radius-md);
+    }
+
+    .social-bottom-icon {
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .social-bottom-note p {
+      font-size: 0.875rem;
+      color: var(--alkimi-grey-light);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 1024px) {
+      .social-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .social-hero-stat { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .social-divider { width: 48px; height: 1px; }
+      .social-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .why-grid { grid-template-columns: repeat(3, 1fr); }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 16px 24px; }
+      .hero, .section, .cta-section { padding-left: 24px; padding-right: 24px; }
+      .stats-strip { grid-template-columns: 1fr; }
+      .outcomes-grid { grid-template-columns: repeat(2, 1fr); }
+      .results-grid, .inventory-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid { grid-template-columns: 1fr; }
+      .divider-purple { margin: 0 24px; }
+      .page-footer { flex-direction: column; align-items: flex-start; }
+      .case-metrics { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <svg viewBox="68 46 216 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:26px;width:auto;">
+      <path d="M83.8615 58.6759C78.5907 58.5085 73.4034 59.9878 69.0608 62.8966L72.2676 68.7C75.3341 66.4522 79.084 65.2623 82.9241 65.3187C88.7704 65.3187 91.6565 68.0525 91.6565 72.7289V73.2325H82.5787C71.9222 73.2325 68 77.693 68 83.4005C68 89.1081 73.057 93.6166 81.074 93.6166C86.3283 93.6166 90.1518 91.9618 92.1005 89.0121V93.1609H99.8462V73.0646C99.8462 63.2323 93.9999 58.6759 83.8861 58.6759H83.8615ZM91.6319 82.5132C90.9055 84.187 89.6588 85.5979 88.0663 86.5483C86.4738 87.4987 84.6154 87.9409 82.7514 87.8131C78.5332 87.8131 76.0417 85.9665 76.0417 83.0168C76.0417 80.6187 77.5465 78.4844 83.1461 78.4844H91.6319V82.4413V82.5132Z" fill="#FFFFFF"/>
+      <path d="M113.711 46H105.497V93.4109H113.711V46Z" fill="#FFFFFF"/>
+      <path d="M145.855 93.7292H155.845L139.811 73.9447L154.464 59.6278H144.597L127.576 74.9519V46H119.361V93.7292H127.576V84.7362L133.693 79.1006L145.855 93.7292Z" fill="#FFFFFF"/>
+      <path d="M167.592 59.3477H159.378V93.473H167.592V59.3477Z" fill="#FFFFFF"/>
+      <path d="M218.253 59.034C215.761 58.9459 213.281 59.412 211.002 60.397C208.724 61.382 206.707 62.8597 205.105 64.7176C203.822 62.8392 202.051 61.324 199.972 60.3258C197.892 59.3277 195.578 58.8819 193.264 59.034C191.102 58.9506 188.947 59.3381 186.958 60.1679C184.97 60.9977 183.197 62.2489 181.769 63.8302V59.4896H173.949V93.591H182.164V76.2765C182.164 69.5138 185.839 66.0605 191.291 66.0605C196.224 66.0605 199.184 69.0102 199.184 75.0774V93.591H207.399V76.2765C207.399 69.5138 211.148 66.0605 216.526 66.0605C221.46 66.0605 224.42 69.0102 224.42 75.0774V93.591H232.634V74.0463C232.634 63.7583 226.714 59.1059 218.253 59.1059" fill="#FFFFFF"/>
+      <path d="M246.093 85.2653V67.2933C246.093 62.7562 242.415 59.0781 237.877 59.0781V93.4804C242.415 93.4804 246.093 89.8024 246.093 85.2653Z" fill="#FFFFFF"/>
+      <path d="M262.163 59.0781C260.952 59.0781 261.062 60.3218 261.503 60.7674C261.985 61.1977 263.589 62.8645 263.589 62.8645L263.589 67.5642C263.589 67.5642 254.221 84.7493 253.026 86.9955C251.49 89.8835 253.906 93.4804 256.657 93.4804C258.562 93.4804 275.266 93.4804 278.111 93.4804C281.412 93.4804 283.833 90.0974 282.292 86.9955C281.75 85.9032 271.51 67.5642 271.51 67.5642V62.867L273.621 60.7674C274.267 60.1379 273.968 59.0781 273.044 59.0781C272.12 59.0781 263.549 59.0781 262.163 59.0781Z" fill="#FFFFFF"/>
+    </svg>
+    <span class="nav-tag">US &amp; UK Available — EMEA Coming Soon</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="overline">Alkimi CTV Marketplace</span>
+      <h1 class="hero-title">Performance TV<br><span>That Converts</span></h1>
+      <p class="hero-sub">TV advertising with real-time attribution, verified business outcomes, and the premium inventory traditional DSPs block for crypto and fintech brands.</p>
+      <div class="hero-badges">
+        <span class="badge badge--purple">Available — US &amp; UK</span>
+        <span class="badge badge--green">EMEA Expansion Coming Soon</span>
+        <span class="badge">No QR Codes Required</span>
+        <span class="badge">Use Existing Creative</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <span class="stat-value purple">2.5X</span>
+      <span class="stat-label">Average ROAS</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">+250%</span>
+      <span class="stat-label">Campaign ROAS Uplift</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value green">85%+</span>
+      <span class="stat-label">US & UK Household Reach</span>
+    </div>
+  </div>
+
+  <div class="divider-purple" style="margin-top:0;"></div>
+
+  <!-- INVENTORY -->
+  <section class="section">
+    <div class="section-header">
+      <span class="overline">Premium Inventory</span>
+      <h2>Where Your Ads Run</h2>
+      <p>Automatic placement provides a curated selection of best-in-class premium content — all partners in one place, optimised continuously for your results.</p>
+    </div>
+    <div class="inventory-grid">
+      <div class="inventory-card">
+        <div class="inventory-card-header">
+          <span class="region-flag">🇺🇸</span>
+          <h3>United States</h3>
+        </div>
+        <div class="inventory-stats">
+          <div class="inventory-stat">
+            <span class="inventory-stat-val">90%+</span>
+            <span class="inventory-stat-label">US household coverage</span>
+          </div>
+          <div class="inventory-stat">
+            <span class="inventory-stat-val">3B+</span>
+            <span class="inventory-stat-label">Hours watched monthly</span>
+          </div>
+          <div class="inventory-stat">
+            <span class="inventory-stat-val">210M</span>
+            <span class="inventory-stat-label">Total addressable viewers</span>
+          </div>
+        </div>
+        <div class="provider-list">
+          <span class="provider-label">CTV Partners</span>
+          <div class="provider-tags">
+            <span class="provider-tag">NBCUniversal</span>
+            <span class="provider-tag">Roku</span>
+            <span class="provider-tag">Xumo</span>
+            <span class="provider-tag">Vizio</span>
+            <span class="provider-tag">Fox</span>
+            <span class="provider-tag">A+E</span>
+            <span class="provider-tag">LG Ad Solutions</span>
+            <span class="provider-tag">Warner Bros. Discovery</span>
+            <span class="provider-tag">DirecTV</span>
+            <span class="provider-tag">FuseMedia</span>
+            <span class="provider-tag">Scripps</span>
+            <span class="provider-tag">AMC Networks</span>
+            <span class="provider-tag">Comcast Advertising</span>
+            <span class="provider-tag">Tubi</span>
+            <span class="provider-tag">COX</span>
+            <span class="provider-tag">Estrella</span>
+            <span class="provider-tag">Televisa Univision</span>
+            <span class="provider-tag">Samsung</span>
+            <span class="provider-tag">Vevo</span>
+          </div>
+        </div>
+      </div>
+      <div class="inventory-card">
+        <div class="inventory-card-header">
+          <span class="region-flag">🇬🇧</span>
+          <h3>United Kingdom</h3>
+        </div>
+        <div class="inventory-stats">
+          <div class="inventory-stat">
+            <span class="inventory-stat-val">85%+</span>
+            <span class="inventory-stat-label">UK household coverage</span>
+          </div>
+          <div class="inventory-stat">
+            <span class="inventory-stat-val">1.33B+</span>
+            <span class="inventory-stat-label">Hours watched monthly</span>
+          </div>
+        </div>
+        <div class="provider-list">
+          <span class="provider-label">CTV Partners</span>
+          <div class="provider-tags">
+            <span class="provider-tag">Sky</span>
+            <span class="provider-tag">Channel 4</span>
+            <span class="provider-tag">ITV</span>
+          </div>
+        </div>
+      </div>
+      <div class="incremental-note">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="10" cy="10" r="9" stroke="#8A5CFF" stroke-width="1.5"/><path d="M10 6v4m0 3h.01" stroke="#8A5CFF" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>CTV campaigns reach <strong>50% more unique individuals</strong> than digital campaigns alone — delivering incremental reach on top of your existing paid media mix. <em style="color:var(--alkimi-grey-mid);font-style:normal;"> Source: Nielsen Total Ad Ratings.</em></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-purple"></div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="overline">Simple Setup</span>
+      <h2>How It Works</h2>
+      <p>Four steps from brief to measurable outcomes. No custom builds, no specialist resource required.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-icon">🎯</div>
+        <span class="step-num">01</span>
+        <h3>Choose Your Outcome</h3>
+        <p>Select from ROAS, Sales, Leads, or Footfall. We align every campaign element to the metric that matters to your business.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">⚡</div>
+        <span class="step-num">02</span>
+        <h3>Pixel Generated</h3>
+        <p>Receive a universal tracking pixel. Works seamlessly across your existing analytics and attribution stack.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">🔧</div>
+        <span class="step-num">03</span>
+        <h3>Implementation</h3>
+        <p>Full onboarding documentation and dedicated technical support throughout. Typically live within days.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">▶</div>
+        <span class="step-num">04</span>
+        <h3>Go Live</h3>
+        <p>Campaign launches across premium CTV inventory. Real-time reporting from day one.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-purple"></div>
+
+  <!-- OUTCOMES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="overline">Your Objectives</span>
+      <h2>Choose Your Outcome</h2>
+      <p>Use your existing online video assets and TV commercials as-is. No additional production costs, no interactive overlays.</p>
+    </div>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <div class="outcome-icon">📈</div>
+        <h3>ROAS</h3>
+        <p>Measure return on every pound of TV spend against real transactions</p>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-icon">💰</div>
+        <h3>Sales</h3>
+        <p>Directly attribute TV exposure to online and offline purchase events</p>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-icon">🧲</div>
+        <h3>Leads</h3>
+        <p>Drive and measure qualified form completions, sign-ups, and enquiries</p>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-icon">📲</div>
+        <h3>App Install</h3>
+        <p>Drive and attribute app downloads directly to CTV exposure across your campaign</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-purple"></div>
+
+  <!-- PROVEN RESULTS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="overline">Case Studies</span>
+      <h2>Proven Performance</h2>
+      <p>Real campaigns, real outcomes — across B2C and B2B verticals.</p>
+    </div>
+    <div class="results-grid">
+      <div class="case-card">
+        <div class="case-card-header">
+          <span>CPG / E-commerce</span>
+          <h3>Food & Beverage Brand</h3>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <span class="case-metric-val green">354%</span>
+            <span class="case-metric-label">Lift in Total Orders</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-val">165%</span>
+            <span class="case-metric-label">Lift in Gross Sales</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-val green">$7</span>
+            <span class="case-metric-label">Cost Per Action</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-card-header">
+          <span>B2B Lead Generation</span>
+          <h3>Regional Services Company — 90-Day Test</h3>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <span class="case-metric-val green">+47%</span>
+            <span class="case-metric-label">Lead Volume Growth</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-val">-45%</span>
+            <span class="case-metric-label">Reduction in CPL</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-val green">+100%</span>
+            <span class="case-metric-label">Increase in Call Volume</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-purple"></div>
+
+  <!-- COMPLEMENTS SOCIAL -->
+  <section class="section">
+    <div class="section-header">
+      <span class="overline">Better Together</span>
+      <h2>Why CTV Amplifies Your Social Investment</h2>
+      <p>Adding premium CTV to your social mix doesn't just extend reach — it makes every social pound work harder.</p>
+    </div>
+    <div class="social-hero-stat">
+      <div class="social-hero-inner">
+        <span class="social-big">1.8x</span>
+        <span class="social-big-label">More view time vs. two social ads</span>
+      </div>
+      <div class="social-divider"></div>
+      <p class="social-hero-desc">Running a TV ad alongside a social ad outperforms running two social ads alone — delivering stronger attention, better recall, and lower cost per action. <em style="color:var(--alkimi-grey-mid);font-style:normal;">Source: Media Science / Effectv Study, 2022.</em></p>
+    </div>
+    <div class="social-grid">
+      <div class="social-card">
+        <div class="social-card-top">
+          <span class="social-stat green">+125%</span>
+          <span class="social-tag">Recall</span>
+        </div>
+        <h3>Higher Unaided Recall</h3>
+        <p>Viewers who see your brand on the big screen remember it significantly more than those who only see social ads — making every subsequent social impression more effective.</p>
+      </div>
+      <div class="social-card">
+        <div class="social-card-top">
+          <span class="social-stat">+18%</span>
+          <span class="social-tag">Intent</span>
+        </div>
+        <h3>Higher Purchase Intent</h3>
+        <p>The combination of premium CTV and social drives measurably stronger intent to buy compared to social alone — closing the gap between awareness and action faster.</p>
+      </div>
+      <div class="social-card">
+        <div class="social-card-top">
+          <span class="social-stat green">50%</span>
+          <span class="social-tag">Reach</span>
+        </div>
+        <h3>Incremental Unique Reach</h3>
+        <p>TV campaigns reach 50% more unique individuals than digital campaigns alone — expanding your audience beyond the users your social platforms can already see. <em style="color:var(--alkimi-grey-mid);font-style:normal;">Source: Nielsen.</em></p>
+      </div>
+      <div class="social-card">
+        <div class="social-card-top">
+          <span class="social-stat">+42%</span>
+          <span class="social-tag">Traffic</span>
+        </div>
+        <h3>Website Visitor Uplift</h3>
+        <p>Brands running CTV alongside social see an average 42% increase in website visitors — meaning your social retargeting pool grows every time a CTV campaign is live.</p>
+      </div>
+    </div>
+    <div class="social-bottom-note">
+      <div class="social-bottom-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L12.4 7.6L18 8.2L14 12L15.2 18L10 15L4.8 18L6 12L2 8.2L7.6 7.6L10 2Z" stroke="#5C26FF" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      </div>
+      <p><strong style="color:var(--alkimi-white);">62.7% of consumers discover brands through TV content</strong> — making CTV the awareness engine that feeds your social performance campaigns downstream.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <span class="overline">Ready to Make TV Work Harder?</span>
+      <h2 class="cta-title">CTV That Converts</h2>
+      <p class="cta-sub">Talk to us about launching a Performance CTV campaign — we'll model your expected outcomes before you commit.</p>
+    </div>
+  </section>
+
+  <!-- PAGE FOOTER -->
+  <footer class="page-footer">
+    <svg viewBox="68 46 216 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:18px;width:auto;opacity:0.4;">
+      <path d="M83.8615 58.6759C78.5907 58.5085 73.4034 59.9878 69.0608 62.8966L72.2676 68.7C75.3341 66.4522 79.084 65.2623 82.9241 65.3187C88.7704 65.3187 91.6565 68.0525 91.6565 72.7289V73.2325H82.5787C71.9222 73.2325 68 77.693 68 83.4005C68 89.1081 73.057 93.6166 81.074 93.6166C86.3283 93.6166 90.1518 91.9618 92.1005 89.0121V93.1609H99.8462V73.0646C99.8462 63.2323 93.9999 58.6759 83.8861 58.6759H83.8615ZM91.6319 82.5132C90.9055 84.187 89.6588 85.5979 88.0663 86.5483C86.4738 87.4987 84.6154 87.9409 82.7514 87.8131C78.5332 87.8131 76.0417 85.9665 76.0417 83.0168C76.0417 80.6187 77.5465 78.4844 83.1461 78.4844H91.6319V82.4413V82.5132Z" fill="#FFFFFF"/>
+      <path d="M113.711 46H105.497V93.4109H113.711V46Z" fill="#FFFFFF"/>
+      <path d="M145.855 93.7292H155.845L139.811 73.9447L154.464 59.6278H144.597L127.576 74.9519V46H119.361V93.7292H127.576V84.7362L133.693 79.1006L145.855 93.7292Z" fill="#FFFFFF"/>
+      <path d="M167.592 59.3477H159.378V93.473H167.592V59.3477Z" fill="#FFFFFF"/>
+      <path d="M218.253 59.034C215.761 58.9459 213.281 59.412 211.002 60.397C208.724 61.382 206.707 62.8597 205.105 64.7176C203.822 62.8392 202.051 61.324 199.972 60.3258C197.892 59.3277 195.578 58.8819 193.264 59.034C191.102 58.9506 188.947 59.3381 186.958 60.1679C184.97 60.9977 183.197 62.2489 181.769 63.8302V59.4896H173.949V93.591H182.164V76.2765C182.164 69.5138 185.839 66.0605 191.291 66.0605C196.224 66.0605 199.184 69.0102 199.184 75.0774V93.591H207.399V76.2765C207.399 69.5138 211.148 66.0605 216.526 66.0605C221.46 66.0605 224.42 69.0102 224.42 75.0774V93.591H232.634V74.0463C232.634 63.7583 226.714 59.1059 218.253 59.1059" fill="#FFFFFF"/>
+      <path d="M246.093 85.2653V67.2933C246.093 62.7562 242.415 59.0781 237.877 59.0781V93.4804C242.415 93.4804 246.093 89.8024 246.093 85.2653Z" fill="#FFFFFF"/>
+      <path d="M262.163 59.0781C260.952 59.0781 261.062 60.3218 261.503 60.7674C261.985 61.1977 263.589 62.8645 263.589 62.8645L263.589 67.5642C263.589 67.5642 254.221 84.7493 253.026 86.9955C251.49 89.8835 253.906 93.4804 256.657 93.4804C258.562 93.4804 275.266 93.4804 278.111 93.4804C281.412 93.4804 283.833 90.0974 282.292 86.9955C281.75 85.9032 271.51 67.5642 271.51 67.5642V62.867L273.621 60.7674C274.267 60.1379 273.968 59.0781 273.044 59.0781C272.12 59.0781 263.549 59.0781 262.163 59.0781Z" fill="#FFFFFF"/>
+    </svg>
+    <span class="footer-note">© 2026 Alkimi Exchange. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://alkimi.exchange" target="_blank">alkimi.exchange</a>
+      <a href="/cdn-cgi/l/email-protection#4028252c2c2f00212c2b292d296e25382328212e2725"><span class="__cf_emai
